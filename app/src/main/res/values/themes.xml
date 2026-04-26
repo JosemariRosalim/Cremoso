@@ -1,0 +1,12 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.CREAMOSO" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Status bar and navigation bar customization -->
+        <item name="android:statusBarColor">@color/teal_background</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
+        <item name="android:navigationBarColor">@color/white</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="27">true</item>
+    </style>
+
+    <style name="Theme.CREAMOSO" parent="Base.Theme.CREAMOSO" />
+</resources>

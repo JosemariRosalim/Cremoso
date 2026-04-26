@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_detail_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".ProductDetailActivity">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingBottom="100dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Product Image Section -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="300dp">
+
+                <ImageView
+                    android:id="@+id/iv_product_detail_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/creamosologo" />
+
+                <ImageView
+                    android:id="@+id/btn_back_detail"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="40dp"
+                    android:src="@android:drawable/ic_menu_revert"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@color/white" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Product Info -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp"
+                android:layout_marginTop="-20dp"
+                android:background="@drawable/rounded_card"
+                android:backgroundTint="@color/white">
+
+                <TextView
+                    android:id="@+id/tv_detail_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="PRODUCT NAME"
+                    android:textColor="@color/black"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_detail_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="P 0.00"
+                    android:textColor="@color/teal_background"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!-- Size Selection -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingHorizontal="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="SELECT SIZE"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"/>
+
+                <RadioGroup
+                    android:id="@+id/rg_size"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp">
+                    <RadioButton
+                        android:id="@+id/rb_moyen"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Moyen (Medium)"
+                        android:checked="true"
+                        android:paddingVertical="10dp"/>
+                    <RadioButton
+                        android:id="@+id/rb_grande"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Grande (Large) (+P20)"
+                        android:paddingVertical="10dp"/>
+                </RadioGroup>
+            </LinearLayout>
+
+            <!-- Sauces -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ADD SAUCES (+P10 each)"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"/>
+
+                <CheckBox android:id="@+id/cb_chocolate" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Chocolate Sauce" android:paddingVertical="8dp"/>
+                <CheckBox android:id="@+id/cb_caramel" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Caramel Sauce" android:paddingVertical="8dp"/>
+                <CheckBox android:id="@+id/cb_strawberry" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Strawberry Sauce" android:paddingVertical="8dp"/>
+            </LinearLayout>
+
+            <!-- Fruits -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingHorizontal="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ADD FRUITS (+P15 each)"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"/>
+
+                <CheckBox android:id="@+id/cb_mango" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Fresh Mango" android:paddingVertical="8dp"/>
+                <CheckBox android:id="@+id/cb_strawberry_fruit" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Strawberry" android:paddingVertical="8dp"/>
+                <CheckBox android:id="@+id/cb_banana" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Banana" android:paddingVertical="8dp"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Bottom Action Bar -->
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:cardElevation="16dp"
+        app:strokeWidth="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <ImageView android:id="@+id/btn_minus" android:layout_width="36dp" android:layout_height="36dp" android:src="@android:drawable/ic_input_delete" android:background="@drawable/rounded_card" android:backgroundTint="@color/teal_light" android:padding="8dp"/>
+                <TextView android:id="@+id/tv_quantity" android:layout_width="40dp" android:layout_height="wrap_content" android:gravity="center" android:text="1" android:textStyle="bold" android:textColor="@color/black"/>
+                <ImageView android:id="@+id/btn_plus" android:layout_width="36dp" android:layout_height="36dp" android:src="@android:drawable/ic_input_add" android:background="@drawable/rounded_card" android:backgroundTint="@color/teal_background" android:padding="8dp" app:tint="@color/white"/>
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_add_to_cart"
+                android:layout_width="0dp"
+                android:layout_height="56dp"
+                android:layout_marginStart="16dp"
+                android:layout_weight="1"
+                android:text="ADD TO CART"
+                android:textStyle="bold"
+                app:backgroundTint="@color/teal_background"
+                app:cornerRadius="28dp" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

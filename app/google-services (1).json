@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "22316732026",
+    "firebase_url": "https://creamoso-a28a1-default-rtdb.firebaseio.com",
+    "project_id": "creamoso-a28a1",
+    "storage_bucket": "creamoso-a28a1.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:22316732026:android:55d442f924fb25538f35c3",
+        "android_client_info": {
+          "package_name": "com.example.creamoso"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "22316732026-5k107p55vdcuci07kdk7ah2h9udtneim.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.creamoso",
+            "certificate_hash": "8f2661325eb4245506941991f5198834e6e6ecf9"
+          }
+        },
+        {
+          "client_id": "22316732026-ree4sdpduhgnm3rrh71ummptoggav6rn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAaak1LXxIW6QxVVzY9dGolbQEgcLT2ygs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "22316732026-ree4sdpduhgnm3rrh71ummptoggav6rn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
