@@ -2,11 +2,10 @@ package com.example.creamoso;
 
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
-import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,6 +15,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.bumptech.glide.Glide;
 
 public class CartActivity extends AppCompatActivity {
 
@@ -27,11 +28,9 @@ public class CartActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // 1. Enable Edge-to-Edge
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_cart);
 
-        // 2. Responsive adjustment for white border navigation
         View root = findViewById(R.id.main_cart_root);
         if (root != null) {
             ViewCompat.setOnApplyWindowInsetsListener(root, (v, windowInsets) -> {
@@ -78,15 +77,14 @@ public class CartActivity extends AppCompatActivity {
             layoutEmpty.setVisibility(View.GONE);
             layoutItems.setVisibility(View.VISIBLE);
 
-            // Add Header
-            addCartHeader();
-
             while (cursor.moveToNext()) {
+                int cartId = cursor.getInt(cursor.getColumnIndexOrThrow("cart_id"));
                 String name = cursor.getString(cursor.getColumnIndexOrThrow("product_name"));
                 double price = cursor.getDouble(cursor.getColumnIndexOrThrow("product_price"));
                 int qty = cursor.getInt(cursor.getColumnIndexOrThrow("quantity"));
+                String imageUrl = cursor.getString(cursor.getColumnIndexOrThrow("image_url"));
 
-                addCartItemRow(name, price, qty);
+                addCartItemRow(cartId, name, price, qty, imageUrl);
             }
             cursor.close();
         } else {
@@ -95,56 +93,29 @@ public class CartActivity extends AppCompatActivity {
         }
     }
 
-    private void addCartHeader() {
-        LinearLayout headerLayout = new LinearLayout(this);
-        headerLayout.setOrientation(LinearLayout.HORIZONTAL);
-        headerLayout.setPadding(0, 16, 0, 16);
+    private void addCartItemRow(int cartId, String name, double price, int qty, String imageUrl) {
+        View rowView = LayoutInflater.from(this).inflate(R.layout.item_cart_product, containerItems, false);
+        
+        ImageView ivProduct = rowView.findViewById(R.id.iv_cart_product_image);
+        TextView tvName = rowView.findViewById(R.id.tv_cart_product_name);
+        TextView tvDetails = rowView.findViewById(R.id.tv_cart_product_details);
+        TextView tvPrice = rowView.findViewById(R.id.tv_cart_product_price);
+        ImageView btnRemove = rowView.findViewById(R.id.btn_remove_from_cart);
 
-        TextView tvQty = createColumnTextView("Qty", 1, true);
-        TextView tvItem = createColumnTextView("Item", 3, true);
-        TextView tvPrice = createColumnTextView("Price", 2, true);
+        tvName.setText(name);
+        tvDetails.setText("Quantity: " + qty);
+        tvPrice.setText(String.format("P%.2f", (price * qty)));
 
-        headerLayout.addView(tvQty);
-        headerLayout.addView(tvItem);
-        headerLayout.addView(tvPrice);
-
-        containerItems.addView(headerLayout);
-
-        // Add a simple separator line
-        View separator = new View(this);
-        separator.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 1));
-        separator.setBackgroundColor(Color.LTGRAY);
-        containerItems.addView(separator);
-    }
-
-    private void addCartItemRow(String name, double price, int qty) {
-        LinearLayout itemLayout = new LinearLayout(this);
-        itemLayout.setOrientation(LinearLayout.HORIZONTAL);
-        itemLayout.setPadding(0, 24, 0, 24);
-
-        TextView tvQty = createColumnTextView(String.valueOf(qty), 1, false);
-        TextView tvItem = createColumnTextView(name, 3, false);
-        TextView tvPrice = createColumnTextView("P" + String.format("%.2f", (price * qty)), 2, false);
-        tvPrice.setGravity(Gravity.END);
-
-        itemLayout.addView(tvQty);
-        itemLayout.addView(tvItem);
-        itemLayout.addView(tvPrice);
-
-        containerItems.addView(itemLayout);
-    }
-
-    private TextView createColumnTextView(String text, int weight, boolean isHeader) {
-        TextView textView = new TextView(this);
-        textView.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, weight));
-        textView.setText(text);
-        textView.setTextSize(isHeader ? 14 : 16);
-        textView.setTextColor(Color.BLACK);
-        if (isHeader) {
-            textView.setTypeface(null, Typeface.BOLD);
-            textView.setTextColor(Color.GRAY);
+        if (imageUrl != null && !imageUrl.isEmpty()) {
+            Glide.with(this).load(imageUrl).into(ivProduct);
         }
-        return textView;
+
+        btnRemove.setOnClickListener(v -> {
+            // Add removal logic here if needed
+            Toast.makeText(this, "Item removal not implemented yet", Toast.LENGTH_SHORT).show();
+        });
+
+        containerItems.addView(rowView);
     }
 
     private void setupNavigation() {

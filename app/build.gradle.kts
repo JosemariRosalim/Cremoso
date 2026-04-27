@@ -41,8 +41,12 @@ dependencies {
     // Firebase
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.database)
+    implementation(libs.firebase.storage)
     implementation(libs.firebase.auth)
     implementation(libs.firebase.messaging)
+    
+    // Image Loading
+    implementation(libs.glide)
     
     // Google Sign-In
     implementation(libs.play.services.auth)

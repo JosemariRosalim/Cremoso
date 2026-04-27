@@ -43,63 +43,83 @@
             app:layout_constraintVertical_bias="1.0" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="24dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/header_manage_payment">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Current GCash QR Code"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <com.google.android.material.card.MaterialCardView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="2dp">
-            <LinearLayout
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Current GCash QR Code"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="24dp">
-
-                <ImageView
-                    android:id="@+id/iv_current_qr"
-                    android:layout_width="200dp"
-                    android:layout_height="200dp"
-                    android:src="@drawable/creamosologo"
-                    android:scaleType="fitCenter"
-                    android:background="#F5F5F5"/>
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_update_qr"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                    android:layout_width="wrap_content"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:text="UPDATE QR CODE"
-                    android:textColor="@color/teal_background"
-                    app:strokeColor="@color/teal_background" />
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="24dp">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="Instruction for Admin:\nThe QR code uploaded here will be displayed to customers during the checkout process. Make sure it is your official GCash business or personal QR."
-            android:textColor="@color/gray_text"
-            android:textSize="13sp"
-            android:lineSpacingExtra="4dp"/>
+                    <ImageView
+                        android:id="@+id/iv_current_qr"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        android:src="@drawable/creamosologo"
+                        android:scaleType="fitCenter"
+                        android:background="#F5F5F5"
+                        android:padding="10dp"/>
 
-    </LinearLayout>
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:hint="Paste GCash QR Image URL"
+                        app:boxStrokeColor="@color/teal_background">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_gcash_qr_url"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textUri" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_save_qr_url"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:layout_marginTop="16dp"
+                        android:text="SAVE QR LINK"
+                        android:textStyle="bold"
+                        app:backgroundTint="@color/teal_background"
+                        app:cornerRadius="12dp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Instruction for Admin:\n1. Upload your QR screenshot to ImgBB.\n2. Copy the 'Direct Link'.\n3. Paste it here and click Save.\n4. This QR will be shown to all customers at checkout."
+                android:textColor="@color/gray_text"
+                android:textSize="13sp"
+                android:lineSpacingExtra="4dp"/>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

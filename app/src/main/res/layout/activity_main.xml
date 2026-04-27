@@ -51,7 +51,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="soft-serve | Frozen yogurt | Iced Coffee"
+        android:text="Soft-Serve | Frozen Yogurt | Iced Coffee"
         android:textColor="@color/white"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"

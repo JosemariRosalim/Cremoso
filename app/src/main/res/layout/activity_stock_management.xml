@@ -5,11 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray_light"
-    tools:context=".AdminOrdersActivity">
+    tools:context=".StockManagementActivity">
 
     <!-- Header -->
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/header_admin_orders"
+        android:id="@+id/header_stock"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/teal_background"
@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/btn_back_admin_orders"
+            android:id="@+id/btn_back_stock"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginStart="16dp"
@@ -32,7 +32,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="MANAGE ORDERS"
+            android:text="STOCK COUNT"
             android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -43,65 +43,19 @@
             app:layout_constraintVertical_bias="1.0" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- History Tab Selection -->
-    <LinearLayout
-        android:id="@+id/layout_order_tabs"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@color/white"
-        app:layout_constraintTop_toBottomOf="@id/header_admin_orders">
-
-        <TextView
-            android:id="@+id/tab_active_orders"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="16dp"
-            android:text="ACTIVE"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:textColor="@color/teal_background"
-            android:background="?attr/selectableItemBackground"/>
-
-        <TextView
-            android:id="@+id/tab_order_history"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="16dp"
-            android:text="HISTORY"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:textColor="@color/gray_text"
-            android:background="?attr/selectableItemBackground"/>
-    </LinearLayout>
-
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layout_order_tabs">
+        app:layout_constraintTop_toBottomOf="@id/header_stock">
 
         <LinearLayout
-            android:id="@+id/container_admin_orders"
+            android:id="@+id/container_stock_items"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="16dp" />
 
     </androidx.core.widget.NestedScrollView>
-
-    <TextView
-        android:id="@+id/tv_no_orders"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="No orders yet."
-        android:textColor="@color/gray_text"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layout_order_tabs" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

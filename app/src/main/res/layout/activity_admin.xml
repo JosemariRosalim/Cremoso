@@ -48,46 +48,6 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <!-- Admin Profile -->
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="4dp"
-                app:strokeWidth="0dp">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:padding="16dp">
-                    <com.google.android.material.imageview.ShapeableImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:src="@drawable/creamosologo"
-                        app:shapeAppearanceOverlay="@style/ShapeAppearance.MaterialComponents.SmallComponent" />
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Admin Account"
-                            android:textColor="@color/black"
-                            android:textStyle="bold" />
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="creamoso.admin@store.com"
-                            android:textSize="11sp" />
-                    </LinearLayout>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
             <!-- Stats -->
             <LinearLayout
                 android:layout_width="match_parent"
@@ -110,9 +70,10 @@
                             android:text="Sales Today"
                             android:textSize="11sp" />
                         <TextView
+                            android:id="@+id/tv_admin_sales"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="P 12,450"
+                            android:text="P 0.00"
                             android:textColor="@color/teal_background"
                             android:textSize="18sp"
                             android:textStyle="bold" />
@@ -135,9 +96,10 @@
                             android:text="Orders Today"
                             android:textSize="11sp" />
                         <TextView
+                            android:id="@+id/tv_admin_orders_count"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="48"
+                            android:text="0"
                             android:textColor="@color/teal_background"
                             android:textSize="18sp"
                             android:textStyle="bold" />
@@ -242,36 +204,11 @@
                     android:padding="4dp"/>
             </RelativeLayout>
 
-            <com.google.android.material.card.MaterialCardView
+            <LinearLayout
+                android:id="@+id/container_pending_orders"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="12dp">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="8dp">
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="12dp">
-                        <TextView
-                            android:id="@+id/order_txt"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Order #1024 - Juan D."
-                            android:textStyle="bold" />
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true"
-                            android:text="NEW"
-                            android:textColor="#FF9800"
-                            android:textStyle="bold"
-                            android:textSize="11sp"/>
-                    </RelativeLayout>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
+                android:orientation="vertical" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
@@ -347,7 +284,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="PROFILE"
+                    android:text="PAYMENT"
                     android:textColor="@color/gray_text"
                     android:textSize="9sp"/>
             </LinearLayout>

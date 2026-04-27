@@ -13,7 +13,7 @@ import java.util.Locale;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "Cremoso.db";
-    private static final int DATABASE_VERSION = 4; // Incremented for Orders table
+    private static final int DATABASE_VERSION = 5; // Incremented for Cart imageUrl
 
     private static final String TABLE_USERS = "users";
     private static final String COLUMN_ID = "id";
@@ -31,6 +31,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_PRODUCT_NAME = "product_name";
     private static final String COLUMN_PRODUCT_PRICE = "product_price";
     private static final String COLUMN_QUANTITY = "quantity";
+    private static final String COLUMN_IMAGE_URL = "image_url";
 
     // Orders Table
     private static final String TABLE_ORDERS = "orders";
@@ -61,7 +62,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + COLUMN_USER_KEY + " TEXT,"
                 + COLUMN_PRODUCT_NAME + " TEXT,"
                 + COLUMN_PRODUCT_PRICE + " REAL,"
-                + COLUMN_QUANTITY + " INTEGER" + ")");
+                + COLUMN_QUANTITY + " INTEGER,"
+                + COLUMN_IMAGE_URL + " TEXT" + ")");
 
         db.execSQL("CREATE TABLE " + TABLE_ORDERS + "("
                 + COLUMN_ORDER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -97,6 +99,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     + COLUMN_ORDER_STATUS + " TEXT,"
                     + COLUMN_ORDER_DATE + " TEXT,"
                     + COLUMN_ORDER_ITEMS + " TEXT" + ")");
+        }
+        if (oldVersion < 5) {
+            db.execSQL("ALTER TABLE " + TABLE_CART + " ADD COLUMN " + COLUMN_IMAGE_URL + " TEXT");
         }
     }
 
@@ -144,13 +149,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     // Cart Operations
-    public boolean addToCart(String userKey, String productName, double price, int quantity) {
+    public boolean addToCart(String userKey, String productName, double price, int quantity, String imageUrl) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_USER_KEY, userKey);
         values.put(COLUMN_PRODUCT_NAME, productName);
         values.put(COLUMN_PRODUCT_PRICE, price);
         values.put(COLUMN_QUANTITY, quantity);
+        values.put(COLUMN_IMAGE_URL, imageUrl);
         long result = db.insert(TABLE_CART, null, values);
         return result != -1;
     }

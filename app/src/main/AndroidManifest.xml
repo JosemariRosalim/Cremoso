@@ -88,6 +88,10 @@
         <activity
             android:name=".AdminOrdersActivity"
             android:exported="false" />
+
+        <activity
+            android:name=".StockManagementActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

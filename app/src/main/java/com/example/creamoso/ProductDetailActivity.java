@@ -14,18 +14,21 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.bumptech.glide.Glide;
+
 public class ProductDetailActivity extends AppCompatActivity {
 
     private int quantity = 1;
     private double basePrice = 0.0;
     private double totalPrice = 0.0;
     private DatabaseHelper dbHelper;
-    private String userKey, productName;
+    private String userKey, productName, imageUrl;
 
     private CheckBox cbChocolate, cbCaramel, cbStrawberry, cbMango, cbStrawberryFruit, cbBanana;
     private RadioGroup rgSize;
     private TextView tvQuantity, tvPrice;
     private com.google.android.material.button.MaterialButton btnAddToCart;
+    private ImageView ivProduct;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +48,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         productName = getIntent().getStringExtra("PRODUCT_NAME");
         String priceStr = getIntent().getStringExtra("PRODUCT_PRICE");
         userKey = getIntent().getStringExtra("USER_INPUT");
+        imageUrl = getIntent().getStringExtra("PRODUCT_IMAGE");
 
         if (priceStr != null) basePrice = Double.parseDouble(priceStr);
 
@@ -53,6 +57,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         tvPrice = findViewById(R.id.tv_detail_price);
         btnAddToCart = findViewById(R.id.btn_add_to_cart);
         rgSize = findViewById(R.id.rg_size);
+        ivProduct = findViewById(R.id.iv_product_detail_image);
 
         cbChocolate = findViewById(R.id.cb_chocolate);
         cbCaramel = findViewById(R.id.cb_caramel);
@@ -62,6 +67,10 @@ public class ProductDetailActivity extends AppCompatActivity {
         cbBanana = findViewById(R.id.cb_banana);
 
         ((TextView)findViewById(R.id.tv_detail_name)).setText(productName);
+        
+        if (imageUrl != null && !imageUrl.isEmpty()) {
+            Glide.with(this).load(imageUrl).into(ivProduct);
+        }
 
         setupListeners();
         calculateTotal();
@@ -144,7 +153,7 @@ public class ProductDetailActivity extends AppCompatActivity {
 
         double finalUnitPrice = totalPrice / quantity;
 
-        if (dbHelper.addToCart(userKey, details.toString(), finalUnitPrice, quantity)) {
+        if (dbHelper.addToCart(userKey, details.toString(), finalUnitPrice, quantity, imageUrl)) {
             Toast.makeText(this, "Added to cart!", Toast.LENGTH_SHORT).show();
             finish();
         } else {

@@ -55,11 +55,9 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Enable Edge-to-Edge for full-screen responsive behavior
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login);
 
-        // Apply WindowInsets to the root view to avoid status and navigation bar overlap
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main_login_root), (v, windowInsets) -> {
             Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(insets.left, insets.top, insets.right, insets.bottom);
@@ -69,7 +67,6 @@ public class LoginActivity extends AppCompatActivity {
         dbHelper = new DatabaseHelper(this);
         mAuth = FirebaseAuth.getInstance();
 
-        // Configure Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
@@ -129,13 +126,12 @@ public class LoginActivity extends AppCompatActivity {
                             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                             intent.putExtra("USER_INPUT", phoneNumber);
                             startActivity(intent);
-                            finish();
                         } else {
                             Intent intent = new Intent(LoginActivity.this, SetupProfileActivity.class);
                             intent.putExtra("PHONE_NUMBER", phoneNumber);
                             startActivity(intent);
-                            finish();
                         }
+                        finish();
                     } else {
                         Toast.makeText(LoginActivity.this, "Sign in failed", Toast.LENGTH_SHORT).show();
                     }
@@ -172,7 +168,6 @@ public class LoginActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         String email = mAuth.getCurrentUser().getEmail();
                         
-                        // Check for Admin Access
                         if (email != null && email.equalsIgnoreCase(ADMIN_EMAIL)) {
                             Toast.makeText(this, "Admin Access Granted", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(LoginActivity.this, AdminActivity.class));
@@ -240,26 +235,6 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        // Check for Admin Access based on Email
-        if (!isMobileSelected && input.equalsIgnoreCase(ADMIN_EMAIL)) {
-            String password = etPassword.getText().toString().trim();
-            if (password.isEmpty()) {
-                Toast.makeText(this, "Please enter admin password", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            mAuth.signInWithEmailAndPassword(input, password)
-                .addOnCompleteListener(this, task -> {
-                    if (task.isSuccessful()) {
-                        Toast.makeText(this, "Admin Access Granted", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(LoginActivity.this, AdminActivity.class));
-                        finish();
-                    } else {
-                        Toast.makeText(this, "Invalid admin credentials", Toast.LENGTH_SHORT).show();
-                    }
-                });
-            return;
-        }
-
         if (isMobileSelected) {
             startPhoneNumberVerification("+63" + input);
         } else {
@@ -268,16 +243,25 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(this, "Password must be at least 6 characters", Toast.LENGTH_SHORT).show();
                 return;
             }
-            
+
             mAuth.signInWithEmailAndPassword(input, password)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
-                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                        intent.putExtra("USER_INPUT", input);
-                        startActivity(intent);
+                        if (input.equalsIgnoreCase(ADMIN_EMAIL)) {
+                            Toast.makeText(this, "Admin Access Granted", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(LoginActivity.this, AdminActivity.class));
+                        } else {
+                            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                            intent.putExtra("USER_INPUT", input);
+                            startActivity(intent);
+                        }
                         finish();
                     } else {
-                        registerEmailUser(input, password);
+                        if (!input.equalsIgnoreCase(ADMIN_EMAIL)) {
+                            registerEmailUser(input, password);
+                        } else {
+                            Toast.makeText(this, "Invalid admin credentials", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
         }
@@ -293,7 +277,7 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 } else {
-                    Toast.makeText(LoginActivity.this, "Authentication failed: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this, "Auth failed: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
                 }
             });
     }
